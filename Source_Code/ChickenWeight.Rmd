@@ -1,0 +1,86 @@
+---
+title: "ChickenWeight"
+author: "Donald"
+date: "2024-03-10"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+# Load Data
+```{r}
+data("ChickWeight")
+
+chickWeight = ChickWeight
+
+head(chickWeight, 8)
+```
+
+# Subset of data that meet the condition Chick is equal four.
+```{r}
+sub1 = subset(chickWeight, chickWeight$Chick == 4)
+head(sub1, 8)
+```
+
+```{r}
+plot(sub1$weight ~ sub1$Time, data = sub1, col=palette(), pch=15, ylab = "Weight (kg)", xlab = "Time (hr)")
+
+```
+```{r}
+plot(sub1$weight ~ sub1$Time, data = sub1, type = 'l', col="blue", ylab = "Weight (kg)", xlab = "Time (hr)")
+```
+
+```{r}
+boxplot(weight ~ Time, data = sub1,  col = "bisque", ylab = "Weight (kg)", xlab = "Time (hr)")
+
+points(sub1$weight ~ sub1$Time, data = sub1, type = 'b', col="red", ylab = "Weight (kg)", xlab = "Time (hr)")
+
+```
+# Subset of data that meet the condition Diet is equal four.
+```{r}
+head(chickWeight, 8)
+
+sub2 = subset(chickWeight, chickWeight$Diet == 4)
+head(sub2, 8)
+
+```
+
+```{r}
+boxplot(weight ~ Time, data = sub2,  col = "bisque", ylab = "Weight (kg)", xlab = "Time (hr)")
+
+```
+# Compute the mean
+```{r}
+subAg = aggregate(weight ~ Time, sub2, mean)
+
+head(subAg, 8)
+```
+# Subset of data that meet the condition Diet is equal two.
+```{r}
+sub3 = subset(chickWeight, chickWeight$Diet == 2)
+
+head(sub3, 8)
+```
+
+```{r}
+subAg1 = aggregate(weight ~ Time, sub3, mean)
+
+head(subAg1, 8)
+```
+
+
+```{r}
+plot(subAg$weight ~ subAg$Time, data = subAg, type = 'b', col="red",pch=15, ylab = "Weight (kg)", xlab = "Time (hr)")
+
+points(subAg1$weight ~ subAg1$Time, data = subAg1, type = 'b', col="purple",pch=19, ylab = "Weight (kg)", xlab = "Time (hr)")
+
+```
+

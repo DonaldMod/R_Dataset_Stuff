@@ -1,0 +1,74 @@
+---
+title: "K-Means"
+author: "Donald"
+date: "2024-03-10"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+# Initiate your dataset
+```{r}
+data("USArrests")
+
+usa = USArrests
+
+head(usa, 5)
+```
+
+```{r}
+names(usa)
+
+```
+# Reproducible randomizer
+```{r}
+set.seed(123)
+randomSample = sample(1:50, 15)
+randomSample
+```
+
+```{r}
+df2 = usa[randomSample,]
+
+df2
+```
+
+```{r}
+df2.scaled = scale(df2)
+
+df2.scaled
+```
+# Euclidean Distance
+```{r}
+library("factoextra")
+
+dist.eucl1 = dist(df2.scaled, method = "euclidean")
+
+dist.eucl1
+```
+
+```{r}
+round(dist.eucl1, 1)
+```
+
+```{r}
+round(as.matrix(dist.eucl1)[1:3,1:3], 1)
+
+```
+# K-Means Clusters
+```{r}
+k_clusters1 = kmeans(USArrests, 3)
+k_clusters1
+```
+```{r}
+plot(df2$Murder, df2$Assault, col=k_clusters1$cluster, pch=19, cex=1, main = "Assault vs. Murder")
+```
+
